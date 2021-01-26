@@ -1,0 +1,3 @@
+{
+    "better-phpunit.phpunitBinary": "/laravel-quickstart/vendor/bin/phpunit"
+}
