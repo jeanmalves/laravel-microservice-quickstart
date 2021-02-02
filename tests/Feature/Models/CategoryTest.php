@@ -41,6 +41,17 @@ class CategoryTest extends TestCase
             $categoryKeys
         );
     }
+    
+    public function testDescriptionAttribute()
+    {
+        $category = Category::create([
+            'name' => 'Ficção',
+            'description' => 'category description'
+        ]);
+        
+        $this->assertEquals('category description', $category->description);
+
+    }
 
     public function testDescriptionAttributeIsNull()
     {
