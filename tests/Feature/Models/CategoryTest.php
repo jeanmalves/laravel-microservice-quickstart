@@ -72,4 +72,25 @@ class CategoryTest extends TestCase
 
         $this->assertFalse($category->is_active);
     }
+
+    public function testUpdate()
+    {
+        $category = factory(Category::class)->create([
+            'name' => 'name_test',
+            'description' => 'description_test',
+            'is_active' => false
+        ])->first();
+        
+        $data = [
+            'name' => 'name_update_test',
+            'description' => 'description_update_test',
+            'is_active' => true
+        ];
+
+        $category->update($data);
+
+        foreach($data as $key => $value) {
+            $this->assertEquals($value, $category->{$key});
+        }
+    }
 }
