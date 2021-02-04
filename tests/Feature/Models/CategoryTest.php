@@ -42,6 +42,18 @@ class CategoryTest extends TestCase
         );
     }
     
+    public function testUuidIsValid()
+    {
+        $category = Category::create([
+            'name' => 'Ficção'
+        ]);
+
+        $pattern = '/^([0-9]|[a-f]){8}-([0-9]|[a-f]){4}-([0-9]|[a-f]){4}-([0-9]|[a-f]){4}-([0-9]|[a-f]){12}$/i';
+        $uuidIsValid = (bool) preg_match($pattern, $category->id, $match);
+
+        $this->assertTrue($uuidIsValid);
+    }
+
     public function testDescriptionAttribute()
     {
         $category = Category::create([
