@@ -116,4 +116,13 @@ class CategoryTest extends TestCase
             $this->assertEquals($value, $category->{$key});
         }
     }
+
+    public function testDelete()
+    {
+        $category = factory(Category::class, 1)->create()->first();
+
+        $category->delete();
+
+        $this->assertNotNull($category->deleted_at);
+    }
 }
