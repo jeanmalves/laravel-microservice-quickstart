@@ -102,7 +102,7 @@ class CategoryTest extends TestCase
             'name' => 'name_test',
             'description' => 'description_test',
             'is_active' => false
-        ])->first();
+        ]);
         
         $data = [
             'name' => 'name_update_test',
