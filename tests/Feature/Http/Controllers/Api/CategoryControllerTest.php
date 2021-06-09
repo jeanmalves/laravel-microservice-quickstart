@@ -63,6 +63,36 @@ class CategoryControllerTest extends TestCase
         $this->assertInvalidationBoolean($response);
     }
 
+    public function testStore()
+    {
+        $response = $this->json('POST', route('categories.store'), ['name' => 'test']);
+
+        $id = $response->json('id');
+        $category = Category::find($id);
+
+        $response
+            ->assertStatus(201)
+            ->assertJson($category->toArray());
+        $this->assertTrue($response->json('is_active'));
+        $this->assertNull($response->json('description'));
+
+        $response = $this->json(
+            'POST',
+            route('categories.store'),
+            [
+                'name' => 'test',
+                'description' => 'description',
+                'is_active' => false
+            ]
+        );
+
+        $response
+            ->assertJsonFragment([
+                'description' => 'description',
+                'is_active' => false
+            ]);
+    }
+
     protected function assertInvalidationRequired(TestResponse $response)
     {
         $response
