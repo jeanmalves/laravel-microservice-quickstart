@@ -93,6 +93,46 @@ class CategoryControllerTest extends TestCase
             ]);
     }
 
+    public function testUpdate()
+    {
+        $category = factory(Category::class)->create([
+            'description' => 'description',
+            'is_active' => false
+        ]);
+
+        $response = $this->json(
+            'PUT', 
+            route('categories.update', ['category' => $category->id]),
+            [
+                'name' => 'test',
+                'description' => 'test',
+                'is_active' => true
+            ]
+        );
+
+        $id = $response->json('id');
+        $category = Category::find($id);
+
+        $response
+            ->assertStatus(200)
+            ->assertJson($category->toArray())
+            ->assertJsonFragment([
+                'description' => 'test',
+                'is_active' => true
+            ]);
+        
+        $response = $this->json(
+            'PUT', 
+            route('categories.update', ['category' => $category->id]),
+            [
+                'name' => 'test',
+                'description' => ''
+            ]
+        );
+
+        $response->assertJsonFragment(['description' => null]);
+    }
+
     protected function assertInvalidationRequired(TestResponse $response)
     {
         $response
