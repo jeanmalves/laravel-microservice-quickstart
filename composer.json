@@ -53,8 +53,8 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
-            "if [ $COMPOSER_DEV_MODE -eq 1 ]; then php artisan ide-helper:generate; fi",
-            "if [ $COMPOSER_DEV_MODE -eq 1 ]; then php artisan ide-helper:models; fi"
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:models"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
